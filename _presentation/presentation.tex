@@ -1,0 +1,143 @@
+
+
+% Full presentation (with overlays, animated bullet items etc)
+%\documentclass[xcolor={x11names,svgnames,dvipsnames,table}, 11pt]{beamer}
+
+% Transparency mode (no overlays)
+\documentclass[xcolor={x11names,svgnames,dvipsnames,table}, trans, 11pt]{beamer}
+
+% 4-up handout mode
+%\documentclass[xcolor={x11names,svgl names,dvipsnames},handout, 9pt]{beamer}
+
+%\setbeameroption{show only notes}
+%\setbeameroption{show notes}
+
+%-- Notes on 2nd screen works with pdflatex 
+% use dspdfviewer for display
+\usepackage{pgfpages}
+%\setbeameroption{show notes on second screen=right}
+
+\setbeamerfont{note page}{size=\scriptsize}
+
+%\includeonlyframes{current}
+%<handout:0 beamer:0>
+
+%==== Load Path Definitions ====
+\input{../project-settings/path-settings.tex}
+
+%==== INCLUDED PACKAGES & COMMAND DEFINITIONS====
+\usepackage{\beamerSettingsPath mybeamersetup}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{\projectPath project-details.tex}
+
+%%% Add Bibliography Files
+\addbibresource{\bibPath project.bib}
+%%% Add project-Specific acronyms
+\loadglsentries{\glossaryPath project-glossary.tex}
+
+
+%============  TITLE PAGE =======================
+\title[]{\myTitle}
+\author{
+  \underline{\emaillink[Daniel  Abler]{daniel.abler@istb.unibe.ch}}\inst{1}, %
+  \emaillink[Author 2]{author.email@domain.com}\inst{2}} 
+\institute{\inst{1} University of Bern, ISTB \and %
+           \inst{2} other author's institute}
+\date{\myTime}
+%\institute{\myUni}
+\subtitle{\mySubject}
+
+%============  LOGOS ON BACKGROUND ===============
+% beamer defines \logo command
+%\newif\ifplacelogo % create a new conditional
+% \placelogotrue % set it to true by default; \placelogofalse -> disable
+% \logo{%
+%    \includegraphics[width=1cm,height=1cm,keepaspectratio]{../logos/ub_16pt_192.eps}%
+% }
+
+%============  LOGO IN HEADER      ===============
+%\logo{\includegraphics[height=0.5cm]{../logos/chic-logo.png}}
+
+%\titlegraphic{\includegraphics[height=0.5cm]{../logos/chic-logo.png}}
+%\titlegraphicii{\includegraphics[height=0.5cm]{../logos/chic-logo.png}}
+
+
+%============ Document-specific settings ===============
+
+% for some reason all tikz node corners seem to be set to 'rounded'
+% following line makes 'sharp corners' default again
+\tikzset{every picture/.style={sharp corners}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BEGIN DOCUMENT %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+{
+\setbeamertemplate{footline}{} 
+\begin{frame}[noframenumbering]
+  \titlepage
+\end{frame}
+}
+
+\section{Biomechanical Tumour Model \& Simulator}
+
+\subsection{Overview}
+
+
+
+%----------------- FRAME -----------------------
+\begin{frame}
+  \frametitle{WP6, UBern: Tumour Biomechanics}
+  \begin{itemize}
+  \item Macroscopic continuum model for simulation of tumour biomechanics: 
+    \begin{itemize}
+    \item Mechanical stresses caused by tumour growth (\nCon{Mass effect})
+    \item Effect on tumour expansion
+    %\item \nCon{Tumour cell \enquote{diffusion}} into surrounding tissue.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+   
+%----------------- FRAME -----------------------
+% \begin{frame}
+%   \frametitle{Bibliography}
+%   \printbibliography
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\backupbegin
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%----------------- FRAME -----------------------
+\begin{frame}[t]
+  \frametitle{Other Slides...}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backupend
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+
+
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-engine: xetex_sh
+%%% TeX-master: t
+%%% End:

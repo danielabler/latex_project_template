@@ -1,0 +1,51 @@
+% tikz shading and transparancy does not work with xetex and 'preview' 
+% 'standalone' uses 'preview' 
+%\documentclass[crop, tikz]{standalone}
+
+
+% as workaround we use 'article' and set page size to picture size
+% see
+% http://tex.stackexchange.com/questions/21011/transparency-in-tikz-preview-package-and-xelatex
+
+\documentclass[a4paper,12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% INCLUDED PACKAGES & COMMAND DEFINITIONS %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{../settings/myfigdevsetup}
+
+% Move incompatible beamer commands to extra file!!
+
+\usepackage{geometry}
+\pagestyle{empty}
+\normalfont% required to select normal font already in the preamble
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% FIGURE GOES HERE                        %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lrbox}{0}%
+%\input{../figs/spin3d.tex}
+  %<>
+  \input{../figs/validation.tikz}
+\end{lrbox}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  (DUMMY) DOCUMENT                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{paperwidth=\wd0,paperheight=\ht0,margin=0cm}
+\parindent=0pt
+\begin{document}
+\usebox{0}%
+\end{document}  
+
+
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-engine: xetex_sh
+%%% TeX-master: t
+%%% End:
+
