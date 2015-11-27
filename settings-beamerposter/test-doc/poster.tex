@@ -1,0 +1,184 @@
+% ===================================
+% = LATEX BEAMER POSTER
+% ===================================
+
+\documentclass[final,xcolor=dvipsnames, 12pt]{beamer} % use beamer
+\usepackage[orientation=portrait,
+            size=a1,           % poster size
+            scale=0.9,         % font scale factor
+            grid,
+            debug
+           ]{beamerposter}    % beamer in poster size
+
+\usepackage{blindtext}
+% ===================================
+% = DOCUMENT SETTINGS
+% ===================================
+\newcommand{\myTitle}{The Title}
+\newcommand{\mySubject}{Subject}
+\newcommand{\myUni}{University of Bern}
+\newcommand{\myLocation}{Bern}
+\newcommand{\myName}{Daniel Abler}
+\newcommand{\myMail}{daniel.abler@istb.unibe.ch}
+
+\newcommand{\myTime}{\today}
+
+% ===================================
+% = GENERAL SETTINGS
+% ===================================
+\usepackage{../settings/mybeamerpostersetup}
+
+% ===================================
+% = POSTER-SPECIFIC SETTINGS
+% ===================================
+% === POSTER STYLE
+\usetheme{DAposter}  
+%--set colors for blocks (without frame)
+  \setbeamercolor{block title}{fg=ngreen,bg=white}
+  \setbeamercolor{block body}{fg=black,bg=white}
+%--set colors for alerted blocks (with frame)
+%--textcolor = fg, backgroundcolor = bg, dblue is the jacobs blue
+  \setbeamercolor{block alerted title}{fg=white,bg=cernblue}%frame color
+  \setbeamercolor{block alerted body}{fg=black,bg=cernblue!10}%body color
+%-- logos
+\logoheaderleft{\includegraphics[height=7.2cm]{../logos/CERNLogoOutline}\vspace*{-0.5cm}}
+\logoheaderright{\includegraphics[height=7.2cm]{../logos/CERNLogoOutline}\vspace*{-0.5cm}}
+\logofooterleft{\includegraphics[height=3cm]{../logos/CERNLogoOutline}\vspace*{-0.5cm}}
+\logofooterright{\includegraphics[height=3cm]{../logos/CERNLogoOutline}\vspace*{-0.5cm}}
+%-- footer text
+\fundingstatement{
+This research has been supported by XXX.
+}
+\conference{
+some conference
+}
+% === Bibliography Files
+\addbibresource{../bib/project.bib}
+% == ACRONYMS, GLOSSARY
+\loadglsentries{../glossary/project-glossary.tex}
+
+% === Poster spacings
+\setlength\columnsep{0pt}
+\newlength{\mytextwidth}
+\setlength{\mytextwidth}{\the\textwidth}
+\newlength{\colspacing}
+\setlength{\colspacing}{0.02\mytextwidth}
+\newlength{\vsep}
+\setlength{\vsep}{5mm}
+\newcommand{\vspacing}{\vspace{\vsep}} 
+\setlength{\columnsep}{\colspacing}
+
+
+%-- Poster Header
+\title{The Poster Title}
+\author{
+  \underline{
+      \emaillink[\myName]{\myMail}}\inst{1}, %
+      \emaillink[Other Author]{other.author@insitute.com}\inst{2}} 
+\institute{\inst{1} \myUni \and %
+           \inst{2} Other institute}
+\date{\myTime}
+\mail{\myMail}
+
+
+
+% ===================================
+% = POSTER CONTENT
+% ===================================
+\begin{document}
+\begin{frame}[t]
+% ------------------------------------
+% -- Begin Intro
+% ------------------------------------
+\begin{columns}[t, totalwidth=1\textwidth]
+  \begin{column}{0.65\mytextwidth}
+    \begin{subblockmulticol}{Biomedical Ion-Beam Research Facility at LEIR}
+      \blindtext
+      \newpage
+      \blindtext
+    \end{subblockmulticol}
+  \end{column}
+  \begin{column}{0.32\mytextwidth}
+    \begin{block}{Study of Beam Transport Lines}
+      \blindtext
+    \end{block}
+  \end{column}
+\end{columns}
+% ------------------------------------
+% -- End Intro
+% ------------------------------------
+
+% ------------------------------------
+% -- Begin SuperBlock
+% ------------------------------------
+\begin{superblock}{Design Constraints \& Methods}
+  \begin{columns}[T,totalwidth=1\textwidth]
+    \begin{column}{0.32\mytextwidth}
+      \begin{block}{Characteristics of slow-extracted Beam}
+        \blindtext
+      \end{block}
+    \end{column}
+    \begin{column}{0.32\mytextwidth}
+      \begin{block}{Characteristics of slow-extracted Beam}
+        \blindtext
+      \end{block}
+    \end{column}
+    \begin{column}{0.32\mytextwidth}
+      \begin{block}{Characteristics of slow-extracted Beam}
+        \blindtext
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{superblock}
+  
+
+
+\begin{columns}[T,totalwidth=1\textwidth]
+  \begin{column}{0.32\mytextwidth}
+% ===================================
+% = BIBLIOGRAPHY
+% ===================================
+  \begin{block}{Further Information}
+    \nocite{*} %
+    % \begingroup %
+    % \RaggedRight %
+    % \setstretch{0.8} %
+    \setlength\bibitemsep{0pt} %
+    \renewcommand*{\bibfont}{\footnotesize} %
+    \printbibliography %
+    %\endgroup
+  \end{block}
+% ------------------------------------
+
+\vspace{3mm}
+
+% ===================================
+% = ACKNOWLEDGEMENT
+% ===================================
+\begin{block}{Acknowledgements}
+  {\small %The authors wish to acknowledge the important contributions by (in alphabetical order):\\
+            U.~Dorda (DESY), %
+            M.~Dosanjh (CERN), %
+            M.~Durante (GSI), %
+            B.~Jones (ROB), %
+            G.~Magrin (MedAustron), %
+            R.~Kaderka (GSI), and %
+            D.~K\"uchler (CERN).% 
+   }
+ \end{block}
+% ------------------------------------
+
+\end{column}
+
+
+% -- END
+% ------------------------------------
+\end{columns}
+\end{frame}
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,502 @@
+
+
+\ProvidesPackage{beamerthemeDAposter}
+
+% ===================================
+% = PACKAGES
+% ===================================
+\RequirePackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,calc, positioning}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\usefonttheme{professionalfonts}
+\RequirePackage{textcomp}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{ragged2e}
+
+% ===================================
+% = LENGHT SETTINGS
+% ===================================
+\newlength{\inboxwd}
+\newlength{\iinboxwd}
+\newlength{\inboxrule}
+\newlength{\logocolw}
+\newlength{\titlecolw}
+\newlength{\logofootercolw}
+\newlength{\footertextcolw}
+
+% ===================================
+% = COMMANDS
+% ===================================
+\newcommand{\makeruleinbox}
+             {{\usebeamercolor[bg]{block alerted title}\centering\hspace*{-0.7cm}
+              \rule{\inboxrule}{0.5cm}}
+             }
+             
+% ===================================
+% = NAMED COLORS
+% ===================================             
+\definecolor{lgreen} {RGB}{180,210,100}
+\definecolor{dblue}  {RGB}{20,66,129}
+\definecolor{lred}   {RGB}{220,0,0}
+\definecolor{nred}   {RGB}{224,0,0}
+\definecolor{norange}{RGB}{230,120,20}
+\definecolor{nyellow}{RGB}{255,221,0}
+\definecolor{ngreen} {RGB}{98,158,31}
+\definecolor{dgreen} {RGB}{78,138,21}
+\definecolor{nblue}  {RGB}{28,130,185}
+\definecolor{jblue}  {RGB}{20,50,100}
+\definecolor{cernblue}  {RGB}{13,58,126}             
+  
+% ===================================
+% = BEAMER SETTINGS
+% ===================================     
+%set the basic colors
+  \setbeamercolor{palette primary}   {fg=black,bg=white}
+  \setbeamercolor{palette secondary} {fg=black,bg=white}
+  \setbeamercolor{palette tertiary}  {bg=jblue,fg=white}
+  \setbeamercolor{palette quaternary}{fg=black,bg=white}
+  \setbeamercolor{structure}{fg=jblue}
+  \setbeamercolor{titlelike}         {bg=jblue,fg=white}
+  \setbeamercolor{frametitle}        {bg=jblue!10,fg=jblue}
+  \setbeamercolor{cboxb}{fg=black,bg=jblue}
+  \setbeamercolor{cboxwb}{fg=black,bg=cernblue!20}
+  \setbeamercolor{cboxr}{fg=black,bg=red}
+%set colors for itemize/enumerate
+  \setbeamercolor{item}{fg=ngreen}
+  \setbeamercolor{item projected}{fg=white,bg=ngreen}
+%set colors for blocks
+  \setbeamercolor{block title}{fg=ngreen,bg=white}
+  \setbeamercolor{block body}{fg=black,bg=nblue}
+%set colors for alerted blocks (with frame)
+  \setbeamercolor{block alerted title}{fg=white,bg=jblue}
+  \setbeamercolor{block alerted body}{fg=black,bg=jblue!10}
+%set colors for super blocks
+ \setbeamercolor{block super title}{fg=jblue,bg=white} 
+ \setbeamercolor{block super body}{fg=black,bg=white}
+%set the fonts
+  \setbeamerfont{section in head/foot}{series=\bfseries}
+  \setbeamerfont{block title}{series=\bfseries}
+  \setbeamerfont{block alerted title}{series=\bfseries}
+  \setbeamerfont{frametitle}{series=\bfseries}
+  \setbeamerfont{frametitle}{size=\Large}
+%set some beamer theme options
+  \setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+  \setbeamertemplate{sections/subsections in toc}[square]
+  \setbeamertemplate{items}[circle]
+  \setbeamertemplate{blocks}[width=0.0]
+  \beamertemplatenavigationsymbolsempty
+%set bibliography style
+ \setbeamertemplate{bibliography item}[text]
+ \setbeamercolor{bibliography item}{fg=black,bg=white}
+ \setbeamercolor{bibliography entry author}{fg=black,bg=white}
+ \setbeamercolor{bibliography item}{fg=black,bg=white}
+ %\setbeamerfont{bibliography item}{size=\tiny}
+ %\setbeamerfont{bibliography entry author}{size=\tiny}
+ 
+% ===================================
+% = HEADER COMMANDS
+% ===================================
+\def\webpage{\setbeamertemplate{webpage}}
+\def\insertwebpage{\usebeamertemplate*{webpage}}
+
+\def\mail{\setbeamertemplate{mail}}
+\def\insertmail{\usebeamertemplate*{mail}}
+
+\def\logoheaderleft{\setbeamertemplate{logoheaderleft}}
+\def\insertlogoheaderleft{\usebeamertemplate*{logoheaderleft}}
+
+\def\logoheaderright{\setbeamertemplate{logoheaderright}}
+\def\insertlogoheaderright{\usebeamertemplate*{logoheaderright}}
+  
+% ===================================
+% = FOOTER COMMANDS
+% ===================================
+\newcommand{\footertext}{}
+\newcommand{\funding}{}
+\newcommand{\conference}{}
+
+\def\footertext{\setbeamertemplate{footertext}}
+\def\insertfootertext{\usebeamertemplate*{footertext}}
+
+\def\fundingstatement{\setbeamertemplate{fundingstatement}}
+\def\insertfundingstatement{\usebeamertemplate*{fundingstatement}}
+
+\def\conference{\setbeamertemplate{conference}}
+\def\insertconference{\usebeamertemplate*{conference}}
+
+
+\def\logofooterleft{\setbeamertemplate{logofooterleft}}
+\def\insertlogofooterleft{\usebeamertemplate*{logofooterleft}}
+
+\def\logofooterright{\setbeamertemplate{logofooterright}}
+\def\insertlogofooterright{\usebeamertemplate*{logofooterright}}
+
+% ===================================
+% = CUSTOM BLOCKS
+% ===================================
+\newenvironment<>{subblock}[1]{%
+    \begin{actionenv}#2%
+      \def\insertblocktitle{#1}%
+      \par%
+      \mode<presentation>{%\usebeamerfont{block}%
+        \setbeamercolor{subblock}{fg=blue,bg=white}
+        \setbeamercolor{local structure}{parent=subblock}}%
+    \usebeamertemplate{block sub begin}}
+    {\par%
+    \usebeamertemplate{block sub end}%
+    \end{actionenv}}
+    
+
+    
+    \newcounter{itemnummer}
+\newcommand{\Qitem}[2][]{% #1 optional, #2 notwendig
+  \ifthenelse{\equal{#1}{}}{\stepcounter{itemnummer}}{}
+  \ifthenelse{\equal{#1}{a}}{\stepcounter{itemnummer}}{}
+  \begin{enumerate}[topsep=2pt,leftmargin=2.8em]
+  \item[\textbf{\arabic{itemnummer}#1.}] #2
+  \end{enumerate}
+}
+
+\newenvironment<>{subblockmulticol}[1]{%
+    \begin{actionenv}#2%
+      \def\insertblocktitle{#1}%
+      \par%
+      \mode<presentation>{%\usebeamerfont{block}%
+        \setbeamercolor{subblock}{fg=blue,bg=white}
+        \setbeamercolor{local structure}{parent=subblock}}%
+      \usebeamertemplate{block submulticol begin}}
+    {\par%
+      \usebeamertemplate{block submulticol end}    
+    \end{actionenv}}
+
+
+\newenvironment<>{superblock}[1]{%
+    \begin{actionenv}#2%
+      \def\insertblocktitle{#1}%
+      \par%
+      \mode<presentation>{%\usebeamerfont{block}%
+        \setbeamercolor{local structure}{parent=superblock}}%
+    \usebeamertemplate{block super begin}}
+    {\par%
+    \usebeamertemplate{block super end}%
+    \end{actionenv}}
+    
+    
+% ===================================
+% = POSTER TITLE
+% ===================================
+\newlength{\headerheight}
+\setbeamertemplate{headline}{
+ \leavevmode
+ \begin{beamercolorbox}[sep=0mm]{cboxwb}%
+  \begin{columns}[c]
+   \begin{column}{0.15\paperwidth}
+   	  \begin{tikzpicture}[baseline=(current bounding box.north)]
+            \node[anchor=south west,inner sep=10mm] (image) at (0,0) {\insertlogoheaderleft};
+            %\begin{scope}[x={(image.south east)},y={(image.north west)}]
+            %  \picturegrid
+            %\end{scope}
+          \end{tikzpicture}
+   \end{column}
+
+   \begin{column}{0.65\paperwidth}
+	    \vskip 1cm	
+	    \centering
+ 	    \begin{flushleft}
+	    	\usebeamercolor{title in headline}{\color{fg}\textbf{\huge{\inserttitle}}\\[1ex]}
+ 	    \end{flushleft}
+	    \usebeamercolor{author in headline}{\color{fg}\large{\insertauthor}\\[1ex]}
+	    \begin{flushleft}
+	      \usebeamercolor{institute in headline}{\color{fg}\normalsize{\insertinstitute}\\[1ex]}
+	    \end{flushleft}
+    \end{column}
+    
+   \begin{column}{0.15\paperwidth}
+   	  \begin{tikzpicture}[baseline=(current bounding box.north)]
+           \node[anchor=south east,inner sep=10mm] (image) at (,0) {\insertlogoheaderright};
+            %\begin{scope}[x={(image.south east)},y={(image.north west)}]
+              % \picturegrid
+            %\end{scope}
+          \end{tikzpicture}
+   \end{column}  
+  \end{columns}
+\end{beamercolorbox}
+}
+
+% ===================================
+% = POSTER FOOTER
+% ===================================
+\setbeamertemplate{footline}{  
+\leavevmode
+ \begin{beamercolorbox}[sep=0mm]{cboxwb}%
+  \begin{columns}
+  \begin{column}{0.15\paperwidth}
+	  \begin{tikzpicture}[baseline=(current bounding box.north)]
+            \node[inner sep=0] (image1) at (0,0) {\insertlogofooterleft};
+          \end{tikzpicture}    
+	\hfill
+   \end{column}
+   \begin{column}{0.70\paperwidth}
+	\begin{flushleft}
+	\hspace{5mm}
+        \begin{minipage}[c][][t]{0.3\columnwidth}
+           \usebeamercolor{institute in headline}{\color{fg}\footnotesize{\insertfundingstatement}\\[1ex]} %
+        \end{minipage}	
+        \hfill
+        \begin{minipage}[c][][t]{0.3\columnwidth}
+           \usebeamercolor{institute in headline}{\color{fg}\footnotesize{\insertconference}\\[1ex]} %
+        \end{minipage}	
+        \hfill
+        \begin{minipage}[c][][t]{0.2\columnwidth}
+%            \begin{minipage}{0.2\textwidth}
+%            \usebeamercolor{institute in headline}{\small{Contact:}} %
+%            \end{minipage}
+%            \begin{minipage}{0.8\textwidth}
+%            \usebeamercolor{institute in headline}{\color{fg}\footnotesize{\texttt\insertmail}}%
+%            \end{minipage}
+	    \usebeamercolor{institute in headline}{\footnotesize{\textbf{Contact}:\\[1ex] \texttt\insertmail}} %
+	    %\usebeamercolor{institute in headline}{\footnotesize{\texttt\insertmail}}%
+        \end{minipage}
+        \hspace{5mm}
+ 	\end{flushleft}
+   \end{column}
+
+   \begin{column}{0.15\paperwidth}
+	\hfill
+	\begin{tikzpicture}
+           \node[inner sep=0pt] (image1) at (0,0) {\insertlogofooterright};
+          \end{tikzpicture}  
+   \end{column}
+       
+    \end{columns}
+  \end{beamercolorbox}
+}
+
+
+% ===================================
+% = POSTER BACKGROUND
+% ===================================
+
+\setbeamertemplate{background}
+{
+\begin{tikzpicture}[remember picture,overlay]
+% \fill [jblue]
+% (current page.south west) rectangle (current page.north east);
+%\draw [line width=1cm,rounded corners=1.5cm, cernblue!60]
+%(current page.south west) rectangle (current page.north east);
+% \fill [white,rounded corners=2cm, xshift=1cm, yshift=1cm]
+% (current page.south west) rectangle (current page.north east);
+\end{tikzpicture}
+}
+
+
+% ===================================
+% = STANDARD BLOCK
+% ===================================
+
+% block
+\setbeamertemplate{block begin}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=0ex,dp={2ex},center]{block title}
+%     \begin{center}
+     \vskip-0.4cm
+     \usebeamerfont{block title}\large\insertblocktitle
+     {\parskip0pt\par}
+%     \end{center}
+     \begin{flushleft}
+     \vskip-1cm
+     \begin{tikzpicture}[remember picture,overlay]
+       \shade [inner color=gray,outer color=white]
+       (0,0) rectangle (\textwidth,0.3cm);
+     \end{tikzpicture}
+     \end{flushleft}
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title}
+  {}
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \vskip-0.5cm
+  \begin{beamercolorbox}[colsep*=0ex,vmode]{block body}%
+    %{\vskip1ex}\vbox{}%
+  \justifying 
+}
+
+\setbeamertemplate{block end}  
+{
+  \end{beamercolorbox}
+  \vskip\smallskipamount
+}
+
+% ===================================
+% = ALERTED BLOCK
+% ===================================
+
+% alertblock (with frame)
+\setbeamertemplate{block alerted begin}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[sep=0ex,rounded=true,center,dp={2ex}]{block alerted title}
+     \vskip-0.4cm
+     \usebeamerfont{block title}\insertblocktitle
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \usebeamerfont{block body}%
+  \vskip-0.8cm
+  \begin{beamercolorbox}[sep=0.5cm, rounded=true,center]{block alerted title}%
+  \setlength{\inboxwd}{\linewidth}
+  \addtolength{\inboxwd}{-1cm}
+  \begin{beamercolorbox}[rounded=true,wd={\inboxwd},center]{block alerted body}
+  \setlength{\iinboxwd}{\inboxwd}
+  \setlength{\inboxrule}{\inboxwd}
+  \addtolength{\iinboxwd}{-0.5cm}
+  \addtolength{\inboxrule}{0.5cm}
+  \begin{center}
+  \begin{minipage}{\iinboxwd}
+  \justifying 
+}
+
+\setbeamertemplate{block alerted end}  
+{
+  \end{minipage}
+  \end{center}
+  \end{beamercolorbox}
+  \end{beamercolorbox}
+  \vskip\smallskipamount
+}
+
+
+% ===================================
+% = SUPER BLOCK
+% ===================================
+\newlength\myblocktitlelength
+\newlength\barlengthL
+\newlength\barlengthR  
+%super block
+\setbeamertemplate{block super begin}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[sep=0ex,center,dp={5ex}]{block super title}
+     %\vskip-0.4cm
+    \usebeamerfont{block title} %
+    \large %
+    \insertblocktitle %   
+    \settowidth\myblocktitlelength{\insertblocktitle}
+    \setlength{\barlengthL}{0.5\textwidth}
+    \addtolength{\barlengthL}{-0.5\myblocktitlelength}
+    %\addtolength{\barlengthL}{-2cm}
+    \setlength{\barlengthR}{1\textwidth}
+    \addtolength{\barlengthR}{-\barlengthL}
+    \addtolength{\barlengthL}{-1em}
+    \begin{flushleft} 
+     \vskip-15mm
+     \begin{tikzpicture}[remember picture,overlay, baseline=(current bounding box.south)]
+       \shade [top color=white,bottom color=jblue]
+       (0\textwidth,0) rectangle (\barlengthL,0.5cm);
+       \shade [top color=white,bottom color=jblue]
+       (\barlengthR,0) rectangle (1\textwidth,0.5cm);
+     \end{tikzpicture}
+     \end{flushleft}
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \usebeamerfont{block body}%
+  \vskip-1.8em
+% \begin{beamercolorbox}[sep=0cm, rounded=true,center, colsep*=0pt]{block super body}%
+ \begin{beamercolorbox}[sep=0cm, colsep*=0pt]{block super body}%
+  \setlength{\inboxwd}{\linewidth}
+  \addtolength{\inboxwd}{0cm}
+ \setlength{\iinboxwd}{\inboxwd}
+ \setlength{\inboxrule}{\inboxwd}
+ \addtolength{\iinboxwd}{-0.5cm}
+ \addtolength{\inboxrule}{0.5cm}
+ \centering
+ \begin{minipage}{\iinboxwd}
+  \justifying 
+}
+
+\setbeamertemplate{block super end}  
+{
+  \end{minipage}
+  \end{beamercolorbox}
+  \vskip\smallskipamount
+}
+
+
+% ===================================
+% = SUB BLOCK
+% ===================================
+\setbeamertemplate{block sub begin}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=0ex,dp={2ex}, ignorebg]{block title}
+%     \begin{center}
+     \vskip-0.4cm
+     \usebeamerfont{block title}\large\insertblocktitle
+%     {\parskip0pt\par}
+%     \end{center}
+     \begin{flushleft}
+     \vskip-1cm
+     \begin{tikzpicture}[remember picture,overlay]
+       \shade [left color=gray,right color=white]
+       (0,0) rectangle (\textwidth,0.1cm);
+     \end{tikzpicture}
+     \end{flushleft}
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title}
+  {}
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \vskip-0.5cm
+  \begin{beamercolorbox}[colsep*=0ex,vmode, ignorebg]{block body}%
+    %{\vskip1ex}\vbox{}%
+  \justifying 
+}
+
+\setbeamertemplate{block sub end}  
+{
+  \end{beamercolorbox}
+  \vskip\smallskipamount
+}
+
+% ===================================
+% = SUB MULTICOLUMN BLOCK
+% ===================================
+
+\setbeamertemplate{block submulticol begin}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=0ex,dp={2ex}, ignorebg]{block title}
+%     \begin{center}
+     \vskip-0.4cm
+     \usebeamerfont{block title}\large\insertblocktitle
+%     {\parskip0pt\par}
+%     \end{center}
+     \begin{flushleft}
+     \vskip-1cm
+     \begin{tikzpicture}[remember picture,overlay]
+       \shade [left color=gray,right color=white]
+       (0,0) rectangle (\textwidth,0.1cm);
+     \end{tikzpicture}
+     \end{flushleft}
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title}
+  {}
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \vskip-0.5cm
+  \begin{beamercolorbox}[colsep*=0ex,vmode, ignorebg]{block body}%
+    %{\vskip1ex}\vbox{}%
+  \begin{multicols}{2}
+  \justifying
+}
+
+\setbeamertemplate{block submulticol end}  
+{
+  \end{multicols}
+  \end{beamercolorbox}
+  \vskip\smallskipamount
+}
