@@ -1,0 +1,88 @@
+ 
+% ==============================
+%     IDENTIFICATION
+% ==============================
+
+\ProvidesPackage{myfigdevsetup}
+\NeedsTeXFormat{LaTeX2e}
+
+% ==============================
+%     PACKAGES
+% ==============================
+
+%============ General Packages ====================
+\RequirePackage{
+  %==== Controls
+  ifthen,
+  %ifxetex,      		% to check which latexcompiler is being used
+  iftex,
+  %==== Links
+  hyperref,     
+  % Enumerations
+  enumitem,     		% easy control of topsep and leftmargin for lists
+  %==== Tables
+  colortbl,			% cell color
+  %==== Math
+  amsmath,
+  amssymb,
+  %==== Graphics
+  etex,
+  xcolor,
+  graphicx
+}
+
+
+%============ Language setting ====================
+% use inputenc, babel for PDFtex and polyglossia otherwise
+\ifPDFTeX
+  \RequirePackage[utf8]{inputenc}
+  %\RequirePackage[ngerman]{babel}
+  \RequirePackage[UKenglish]{babel}
+  \RequirePackage[babel]{csquotes} 
+  \else
+  \RequirePackage{polyglossia}
+  %\setdefaultlanguage[spelling=new]{german}
+  \setdefaultlanguage[variant=british]{english}
+  \RequirePackage{csquotes} 
+\fi
+
+%============= GRAPHICS ======================
+
+%--- TikZ
+\RequirePackage{tikz, tkz-euclide, tikz-3dplot}
+\usetkzobj{all}
+\usetikzlibrary{calc, chains, matrix, arrows, shapes, scopes, fit,
+  decorations.pathmorphing, decorations.pathreplacing,  automata,
+  trees, positioning, shadows, calc, mindmap, backgrounds,
+  intersections, spy, 3d}
+
+%--- frames, boxes
+\RequirePackage[framemethod=tikz]{mdframed}
+
+
+%============ Units ====================
+\usepackage[detect-mode,detect-weight]{siunitx}
+\sisetup{%
+    % -----------------------------------------
+    % avoid font scaling problems in combination with fontspec
+    % see siunitx manual, p 70
+    mode = math,
+    math-rm = \ensuremath,
+    % -----------------------------------------
+    %list-units = single, %
+    %range-units = single, %
+    %range-phrase = {\text{~to~}},
+    range-phrase= %
+       \ifmmode\text{\,\textendash\,}
+    	\else
+    	\thinspace\textendash\thinspace
+          \fi,%
+    exponent-product = \cdot,%
+    separate-uncertainty = true}
+
+
+%============= My COMMANDS ======================
+% load before glossaries -> \httplink dependency
+\RequirePackage{../settings/mycommands}	
+\RequirePackage{../settings/generalTextMarkup}	
+%\RequirePackage{../settings/mybeamercommands}	
