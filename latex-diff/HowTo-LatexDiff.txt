@@ -1,0 +1,9 @@
+python scm-latexdiff.py 4161fa16d4b:LaTeX/ThesisMaster.tex local:LaTeX/ThesisMaster.tex 
+latexdiff old_flat.tex new_flat.tex --config="PICTUREENV=(?:picture|DIFnomarkup|align)[\w\d*@]*" > diff.tex
+or
+latexdiff old_flat.tex new_flat.tex -c ../latexdiff_config.cfg >diff.tex
+
+
+latexdiff old_flat.tex new_flat.tex -c configfile > diff.tex
+
+configfile not even necessary
