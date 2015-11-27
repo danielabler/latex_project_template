@@ -1,0 +1,57 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%            PATH SETTINGS                 %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%==== SETTINGS PATH
+% Here we follow a similar strategy as for graphics path
+\def \generalSettingsPath{../../../settings-general/}
+\def \beamerSettingsPath{../../settings/}
+\def \beamerposterSettingsPath{../../../settings-bemaerposter/settings/}
+
+
+%==== PROJECT DETAILS
+% Here we follow a similar strategy as for graphics path
+\def \projectPath{../project-details/}
+
+
+
+%==== BIB
+% Here we follow a similar strategy as for graphics path
+\def \bibPath{../bib/}
+
+
+%==== GLOSSARY
+% Here we follow a similar strategy as for graphics path
+\def \glossaryPath{../glossary/}
+
+
+%==== FIGURES
+
+% This defines a variable for the path to the directory where figures are located
+\def \logoPath{../logos/}
+
+% This defines a variable for the path to the directory where figures are located
+\def \figPath{../figs/}
+
+% \graphicspath defines where the latex graphics package looks for files called by \includegraphics{...}
+\graphicspath{{\figPath}{\logoPath}}
+%or for multiple folders: \def\input@path{{/path/to/folder}{/path/to/other/folder}}
+% With these settings you can load a graphic form ../figs/fig.png using only \includegraphics{fig.png} 
+% BEWARE that not all packages are aware of the graphicspath variable
+% (e.g. epstopdf is not)!
+% In those cases call by \includegraphics{\figPath fig.eps}
+
+
+%==== INPUT PATH
+% Here we follow a similar strategy as for graphics path
+\def \tabPath{../tables/}
+
+% Here we follow a similar strategy as for graphics path
+\def \tikzPath{\figPath}
+
+% This defines where latex looks for files called by \input{...}
+\makeatletter
+\def\input@path{{\tabPath}{\tikzPath}}
+%or for multiple folders: \def\input@path{{/path/to/folder}{/path/to/other/folder}}
+\makeatother
+ 

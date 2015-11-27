@@ -1,0 +1,125 @@
+\ProvidesPackage{BibCustomisations}
+
+%================================================================
+%--- TODO
+%--  mapping Journal fulname -> shortname: http://tex.stackexchange.com/questions/76241/show-journal-abbreviation-in-reference-list-with-biblatex-biber
+
+
+%================================================================
+%--- numeric style -> inverse numbering, 
+%-- see http://tex.stackexchange.com/questions/21401/biblatex-reverse-numbering-i-e-count-down/22770#22770
+%-- Count total number of entries in each refsection
+% \AtDataInput{%
+%   \csnumgdef{entrycount:\therefsection}{%
+%     \csuse{entrycount:\therefsection}+1}}
+% %-- Print the labelnumber as the total number of entries in the
+% %-- current refsection, minus the actual labelnumber, plus one
+% \DeclareFieldFormat{labelnumber}{\mkbibdesc{#1}}    
+% \newrobustcmd*{\mkbibdesc}[1]{%
+%   \number\numexpr\csuse{entrycount:\therefsection}+1-#1\relax}
+
+%================================================================
+%--- Highlight Author Name
+%-- http://tex.stackexchange.com/questions/49975/italicizing-an-author-in-biblatex/49992#49992
+% \RequirePackage{xpatch}
+% \newbibmacro*{name:emph}{%
+%   \ifboolexpr{ test {\ifcurrentname{author}} and test {\ifbibliography}
+%     %and test {\ifentrytype{inproceedings}}
+%     and ( ( test {\iffieldundef{usera}}
+%             and test {\ifnumequal{\value{listcount}}{1}} )
+%           or test {\ifnumequal{\thefield{usera}+0}{\value{listcount}}} ) }
+%    {\bfseries}{}}
+
+% different positioning first/last name for first author and other authors
+% \xpretobibmacro{name:last}{\begingroup\usebibmacro{name:emph}}{}{}
+% \xpretobibmacro{name:first-last}{\begingroup\usebibmacro{name:emph}}{}{}
+% \xpretobibmacro{name:last-first}{\begingroup\usebibmacro{name:emph}}{}{}    
+% \xpretobibmacro{name:delim}{\begingroup\normalfont}{}{}    
+
+% \xapptobibmacro{name:last}{\endgroup}{}{}
+% \xapptobibmacro{name:first-last}{\endgroup}{}{}
+% \xapptobibmacro{name:last-first}{\endgroup}{}{}    
+% \xapptobibmacro{name:delim}{\endgroup}{}{}    
+% \ExecuteBibliographyOptions{firstinits,maxbibnames=99}
+% \DeclareNameAlias{default}{first-last} % or use e.g. {last-first/first-last}
+
+%==============================================================
+%--- Suppress fields for certain entry types
+\AtEveryBibitem{%
+  \ifboolexpr
+    {
+      test { \ifentrytype{article} }
+      or
+      test { \ifentrytype{report} }
+      or
+      test { \ifentrytype{book} }
+      or
+      test { \ifentrytype{inbook} }
+      or
+      test { \ifentrytype{inproceedings} }
+    }
+    {\clearfield{url}}
+    {\clearfield{urldate}}%
+    {\clearfield{note}}
+    {\clearfield{annote}}
+    {\clearfield{issn}}%
+    {\clearfield{isbn}}%
+    {\clearfield{pmid}}%
+    {\clearfield{pmidc}}%
+}
+\AtEveryBibitem{%
+  \ifboolexpr
+    {
+      test { \ifentrytype{misc} }
+    }
+    {\clearfield{url}}
+    {\clearfield{urldate}}%
+}
+
+%==============================================================
+%--- declare citation command for journal
+% http://tex.stackexchange.com/questions/26682/how-to-create-a-citejournal-citebooktitle-cite-command-in-biblatex
+
+\renewbibmacro*{journal}{%
+  \iffieldundef{shortjournal}
+    {%
+      \iffieldundef{journaltitle}
+        {}
+        {%
+          \printtext[journaltitle]
+            {%
+              \printfield[titlecase]{journaltitle}%
+              \setunit{\subtitlepunct}%
+              \printfield[titlecase]{journalsubtitle}%
+             }%
+         }%
+    }
+    {\printtext[journaltitle]{\printfield[titlecase]{shortjournal}}}%
+}
+
+\DeclareCiteCommand{\citejournal}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+    \usebibmacro{journal}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+
+
+%==============================================================
+%--- Suppress fields for \fullcite citation
+\DeclareCiteCommand{\fullcite}
+  {\usebibmacro{prenote}}
+  {\clearfield{url}\clearfield{doi}\usedriver
+     {\DeclareNameAlias{sortname}{default}}
+     {\thefield{entrytype}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+  
+  
+%==============================================================  
+% remove Bibliography item in beamer
+% http://tex.stackexchange.com/questions/53127/removing-document-icons-from-a-bibtex-bibliography-in-beamer?rq=1
+\setbeamertemplate{bibliography item}{}
+  
+  

@@ -1,0 +1,291 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Layout Customisation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%==== THEME SELECTION
+
+%== Glossy pretty look for the presentation and transparency (w/o overlays and animations) versions!
+\mode<beamer|trans>{
+%== inner
+\usecolortheme{rose}
+%\useinnertheme{rectangles}
+\useinnertheme[
+              %corners=5pt,              % content-to-box-border
+              %padding=10pt,             % head-to-body distance
+              %shadow,                  % drop shadow
+              %realshadow,               % real drop shadow
+              %outline
+              ]{chamfered}
+%== outer
+%\usecolortheme{dolphin}
+\usecolortheme{shark}
+%\useoutertheme{default}
+\useoutertheme[
+	      %glossy, 			% polished loo, with shadows
+	      nofootline		% suppresses footer
+	      %noseperators              % suppresses vertical bars in the head/foot
+	      ]{wuerzburg}
+%conflict with enumitem package -> itemize symbols disappear when loaded 
+%title, section ... in header is link and thus is typeset in hyperlink link color! -> set 'colorlinks=false'
+
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{alerted text}{fg=ngreen}
+}
+
+% \mode<presentation>
+% 
+% % inner
+% \usecolortheme{rose}
+% \useinnertheme{rectangles}
+% % outer
+% \usecolortheme{dolphin}
+% \useoutertheme{default}
+ 
+
+ %==== THEME CUSTOMISATION
+% make first level itemize in blue, 2nd level itemize in ChicYellow
+% enumerate color hidden in table of contents/outline
+
+
+% %-- COLOR
+% \setbeamercolor{structure}{fg=ChicBlue, bg=ChicYellow}
+% \setbeamercolor*{palette secondary}{use=structure,fg=structure.fg,bg=structure.bg}
+% \setbeamercolor{shadow}{use=structure,fg=structure.fg,bg=structure.fg}
+% \setbeamercolor{author}{use=structure,fg=structure.bg!80!black}
+% \setbeamercolor{institute}{use=structure,fg=structure.bg!80!black}
+% 
+% \setbeamercolor{alerted text}{use=structure,fg=structure.bg!80!black} 
+% %-- FONT
+% \setbeamerfont{institute}{size=\large}
+% \setbeamerfont{author}{size=\large}
+% \setbeamerfont{title}{size=\Huge}
+% 
+% %-- SIZE
+% \setbeamersize{text margin left=1em,text margin right=1em}
+% 
+% %-- OPTIONS
+% \setbeamertemplate{navigation symbols}{}
+% %\setbeamertemplate{itemize item}{\color{yellow}$\blacksquare$}
+% %\setbeamertemplate{itemize subitem}{\color{orange}$\blacktriangleright$}
+% \setbeamercolor{item projected}{fg=ChicBlue,bg=ChicYellow}
+% \setbeamercolor{subitem projected}{fg=ChicYellow}
+% 
+% 
+% % beamer pro/contra bullet points
+% % http://tex.stackexchange.com/questions/14319/beamer-change-individual-bullet-color-for-pros-and-cons-list?rq=1
+% % usage: \item<pro@1-> A pro item
+% \newenvironment{proenv}{\only{\setbeamercolor{local structure}{fg=green}}}{}
+% \newenvironment{conenv}{\only{\setbeamercolor{local structure}{fg=red}}}{}
+% 
+% \newenvironment{doneenv}{
+%   \only{
+%     \setbeamercolor{local structure}{fg=green!50!black}
+%     \setbeamertemplate{itemize items}{\checkmark}
+%     }}{}
+% \newenvironment{missingenv}{
+%   \only{
+%     \setbeamercolor{local structure}{fg=green}
+%     %\setbeamertemplate{itemize items}{\xmark}
+%     }}{}
+% \newenvironment{addenv}{\only{\setbeamercolor{local structure}{fg=green}}}{}
+% \newenvironment{inprocenv}{\only{\setbeamercolor{local structure}{fg=red}}}{}
+% \newenvironment{importantenv}{\only{\setbeamercolor{local structure}{fg=red}}}{}
+
+
+
+%-- TITLE PAGE
+% \makeatletter
+% \setbeamertemplate{title page}
+% {
+%   \vbox{}
+%    {\usebeamercolor[fg]{titlegraphic}\includegraphics[height=3cm]{../logos/chic-logo.png}\par}
+%   \begin{centering}
+%     \vskip2em\par
+%     \begin{beamercolorbox}[sep=8pt,center]{title}
+%       \usebeamerfont{title}\inserttitle\par%
+%       \ifx\insertsubtitle\@empty%
+%       \else%
+%         \vskip0.25em%
+%         {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+%       \fi%     
+%     \end{beamercolorbox}%
+%     \vskip1em\par
+%   \end{centering}
+%   \par
+%     \begin{beamercolorbox}[sep=8pt]{author}
+%       \includegraphics[height=1.2cm]{../logos/ub_16pt_192.eps} 
+%       \hspace{10mm}
+%       \begin{minipage}[b][][t]{0.6\linewidth}
+%         \usebeamerfont{author}\insertauthor
+%       \end{minipage}
+%     \end{beamercolorbox}
+% }
+% \makeatother
+
+
+%-- FRAMETITLE
+% \setbeamertemplate{frametitle}
+% {
+%    \nointerlineskip
+%     \begin{beamercolorbox}[sep=0cm,ht=9mm, wd=\paperwidth]{frametitle}
+%         \vbox{}%\vskip-2ex%
+%         \hspace{1mm}
+%         \includegraphics[height=0.8cm]{../logos/chic-logo.png}
+%         \hfill 
+%         \begin{minipage}[b][][c]{0.8\linewidth}
+%           \raggedleft\strut\insertframetitle\strut
+%         \end{minipage}
+%         \hspace{2mm}
+% 	%\vskip-3ex%
+%     \end{beamercolorbox}
+%     \vskip-5mm%
+%     \hbox{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=0ex,dp=1pt]{shadow}%
+%         \mbox{}
+%       \end{beamercolorbox}
+%   }%
+% }
+% 
+% %-- FOOTLINE
+% \setbeamertemplate{footline}
+% {
+%   \hbox{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=0ex,dp=1pt]{shadow}%
+%         \mbox{}
+%       \end{beamercolorbox}
+%   }%
+%   \leavevmode%
+%   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}%
+%     \usebeamerfont{date in head/foot}\insertshortdate{}
+%   \end{beamercolorbox}%
+%   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}%
+%     \usebeamerfont{date in head/foot}\insertshortsubtitle
+%   \end{beamercolorbox}%
+%   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+%     \usebeamerfont{date in head/foot}
+%     \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+%   \end{beamercolorbox}%
+%   \vskip0pt%
+% }
+% 
+% \mode
+% <all>
+
+% \makeatletter
+% \setbeamertemplate{footline}
+% {
+%   \leavevmode%
+%   \hbox{%
+%   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+%     \usebeamerfont{author in head/foot}
+%    % ENLIGHT, July 2013
+%    %\insertshortauthor%~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+%   \end{beamercolorbox}%
+%   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+%    %\usebeamerfont{title in head/foot}\insertshorttitle
+%   \end{beamercolorbox}%
+%   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+%     \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+%     \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+%   \end{beamercolorbox}}%
+%   \vskip0pt%
+% }
+% \makeatother
+
+\setbeamertemplate{caption}[numbered]  % enable float numbering
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{frametitle continuation}[from second][(cont'd)]
+\usefonttheme[stillsansseriftext,stillsansserifsmall]{serif}
+
+%% Save up on ink for the 4-up handouts
+% \mode<handout>{
+% \useoutertheme{wuerzburg}
+% \useinnertheme[outline]{chamfered}
+% \pgfpagesuselayout{4 on 1}[a4paper, landscape, border shrink=10mm]
+% \pgfpageslogicalpageoptions{1}{border code=\pgfstroke}
+% \pgfpageslogicalpageoptions{2}{border code=\pgfstroke}
+% \pgfpageslogicalpageoptions{3}{border code=\pgfstroke}
+% \pgfpageslogicalpageoptions{4}{border code=\pgfstroke}
+% }
+
+\mode<presentation>{
+\AtBeginSection{%
+{
+\setbeamertemplate{footline}{} 
+\begin{frame}[noframenumbering]
+\frametitle{Contents}
+\tableofcontents[currentsection]
+\end{frame}
+}
+}
+}
+
+
+\makeatletter
+\AtBeginPart{%
+  \addtocontents{toc}{\protect\beamer@partintoc{\the\c@part}{\beamer@partnameshort}{\the\c@page}}%
+}
+%% number, shortname, page.
+\providecommand\beamer@partintoc[3]{%
+  \ifnum\c@tocdepth=-1\relax
+    % requesting onlyparts.
+    \makebox[6em]{PART #1:} #2
+    \par
+  \fi
+}
+\define@key{beamertoc}{onlyparts}[]{%
+  \c@tocdepth=-1\relax
+}
+\makeatother%
+
+
+% Fixing Beamer Note Frame appearance
+% http://tex.stackexchange.com/questions/1480/changing-the-textwidth-of-the-notes-in-beamer-repost-from-so
+\makeatletter
+\defbeamertemplate{note page}{infolines}
+{%
+  {%
+    \scriptsize
+    \insertvrule{.25\paperheight}{white!90!black}
+    \vskip-.25\paperheight
+    \nointerlineskip
+    \vbox{
+      \hfill\insertslideintonotes{0.25}\hskip-\Gm@rmargin\hskip0pt%
+      \vskip-0.25\paperheight%
+      \nointerlineskip
+      \begin{pgfpicture}{0cm}{0cm}{0cm}{0cm}
+        \begin{pgflowlevelscope}{\pgftransformrotate{90}}
+          {\pgftransformshift{\pgfpoint{-2cm}{0.2cm}}%
+          \pgftext[base,left]{\footnotesize\the\year-\ifnum\month<10\relax0\fi\the\month-\ifnum\day<10\relax0\fi\the\day}}
+        \end{pgflowlevelscope}
+      \end{pgfpicture}}
+    \nointerlineskip
+    \vbox to .25\paperheight{\vskip0.5em
+      \hbox{\insertshorttitle[width=8cm]}%
+      \setbox\beamer@tempbox=\hbox{\insertsection}%
+      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip4pt\raise3pt\hbox{\vrule
+            width0.4pt height7pt\vrule width 9pt
+            height0.4pt}}\hskip1pt\hbox{\begin{minipage}[t]{7.5cm}\def\breakhere{}\insertsection\end{minipage}}\fi%
+      }%
+      \setbox\beamer@tempbox=\hbox{\insertsubsection}%
+      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip17.4pt\raise3pt\hbox{\vrule
+            width0.4pt height7pt\vrule width 9pt
+            height0.4pt}}\hskip1pt\hbox{\begin{minipage}[t]{7.5cm}\def\breakhere{}\insertsubsection\end{minipage}}\fi%
+      }%
+      \setbox\beamer@tempbox=\hbox{\insertshortframetitle}%
+      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip30.8pt\raise3pt\hbox{\vrule
+            width0.4pt height7pt\vrule width 9pt
+            height0.4pt}}\hskip1pt\hbox{\insertshortframetitle[width=7cm]}\fi%
+      }%
+      \vfil}%
+  }%
+  \vskip.25em
+  \nointerlineskip
+  \begin{minipage}{\textwidth} % this is an addition
+  \insertnote
+  \end{minipage}               % this is an addition
+}
+\makeatother
+
+\setbeamertemplate{note page}[infolines]

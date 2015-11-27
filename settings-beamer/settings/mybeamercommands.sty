@@ -1,0 +1,256 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer-specific Commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{figTitleColor}{RGB}{255,128,0} 
+\definecolor{figLabelColor}{RGB}{255,255,255} 
+\definecolor{figSourceColor}{RGB}{0,0,0} 
+\definecolor{figAnnotationColor}{RGB}{255,128,0} 
+
+
+\colorlet{figTitleColor}{ChicBlue}
+%============   TEXT MARKUP   ===============
+\newcommand{\follows}{\ensuremath{\blacktriangleright\,}}
+
+
+%============   TABLE MARKUP   ===============
+% command for coloring rows in table upon transition
+% usage: add \rowcolor<2->{blue!30} in first cell of row
+% from: http://tex.stackexchange.com/questions/68371/how-to-highlight-table-rows-by-colors-in-beamer
+% needs: \documentclass[xcolor=table]{beamer}
+\rowcolors{1}{gray!30}{gray!10}
+
+\makeatletter
+    \def\rowcolor{\noalign{\ifnum0=`}\fi\bmr@rowcolor}
+    \newcommand<>{\bmr@rowcolor}{%
+        \alt#1%
+            {\global\let\CT@do@color\CT@@do@color\@ifnextchar[\CT@rowa\CT@rowb}% 
+            {\ifnum0=`{\fi}\@gooble@rowcolor}% 
+    }
+    \newcommand{\@gooble@rowcolor}[2][]{\@gooble@rowcolor@}
+    \newcommand{\@gooble@rowcolor@}[1][]{\@gooble@rowcolor@@}
+    \newcommand{\@gooble@rowcolor@@}[1][]{\ignorespaces}
+\makeatother
+
+
+%============   NAVIGATION      ===============
+
+% modify appearance of beamergotobutton
+% usage: \hyperlink{sec:mri}{\beamergotobutton{MRI recap?}} 
+
+\setbeamertemplate{button}{\tikz
+  \node[
+  inner xsep=10pt,
+  draw=structure!80,
+  fill=structure!50,
+  text=black, 
+  rounded corners=4pt]  {\Large\insertbuttontext};}
+
+  
+%============  TRANSITIONS           ========
+
+% allows arguments to be added for specific transition numbers
+% usage: \node[on chain, onslide={<2> cross out, draw=red}] {attenuation}
+% http://tex.stackexchange.com/questions/23548/highlighting-specific-parts-of-a-tikz-drawing
+\tikzset{onslide/.code args={<#1>#2}{%
+  \only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
+}}
+
+% http://tex.stackexchange.com/questions/230943/beamer-tikz-cd-uncover-does-not-work
+% usaage: \arrow[visible on=<2->,r]\arrow[visible on=<3>,d] \& 2\arrow[visible on=<2->,d] \\
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+  }
+}
+
+%============  CITATIONS & REFERENCES  ========
+\newcommand{\shortcite}[1]{
+ \textcolor{citationColor}{\citeauthor{#1}}, \citeyear{#1}, \citejournal{#1}
+}
+
+\newcommand{\figcite}[1]{
+  \shortcite{#1}
+}
+
+\newcommand{\textsource}[1]{
+  \hfill \footnotesize \shortcite{#1}
+}
+
+
+
+\mdfdefinestyle{citation}{
+   leftmargin=0.05\textwidth,rightmargin=0.05\textwidth,%
+   innerleftmargin=1mm,innerrightmargin=1mm, %
+   roundcorner=1pt, %
+   %font=\scriptsize % changes vertical spacing of text in whole outer environment
+   }
+   
+    
+ 
+\newcommand{\myfullcite}[1]{
+   %\vspace{1mm}
+   \begin{mdframed}[style=citation] 
+     \tiny \fullcite{#1}
+   \end{mdframed}
+}
+
+\newcommand{\mypublications}[2][0.95\linewidth]{
+ \begin{minipage}{#1}
+    \begin{refsection}
+      \nocite{#2} %
+      \printbibliography
+    \end{refsection}
+  \end{minipage}
+}
+
+%============   FIGURES         ===============
+
+%within tikzpicture
+
+
+
+%figureannotation{referenced node name}{source}[optional arguments in overlayed tikzpicture]
+%\figureannotation{synchrotron}{\href{http://de.theoriefinder.wikia.com/wiki/Datei:SynchrotronZeichnungNeu.JPG}{Theoriefinder Wiki}}[
+%\node[figtitle, anchor=south, font=\huge] at (0.5, 1) {Synchrotron};
+%\node[anchor=north west] at (0,0) {$B$ variabel, $r=const$};
+%]
+
+%beamerfigure{arguments for tikzpicture environment}[options for includegraphics]{path}{source}[optional annotation as overlay]
+%\beamerfigure{}[height=0.4\textheight]{fig/cancer_NumberOfNewCases-AgeAtDiagnosis.jpeg}{PTCRi}[
+%\node[figtitle, anchor=east] at (-0.1, 0.5) {für UK};]
+
+%=== STYLE for figure title )as overlay in figure
+\tikzset{figTitleStyle/.style={align=center, anchor=south, text=figTitleColor, font=\large, fill=white!30,fill opacity=0.5,text opacity=1, rounded corners, inner sep=2pt, outer sep=2pt,}}
+\tikzset{figSourceStyle/.style={align=right, anchor=north east, text=figSourceColor, font=\fontsize{5pt}{6pt}\selectfont, fill=white!30,fill opacity=0.5,text opacity=1,inner sep=1pt, outer sep=1pt,}}
+\tikzset{figAnnotationStyle/.style={align=right, anchor=north east, text=figAnnotationColor, font=\normalfont, fill=white!30,fill opacity=0.5,text opacity=1,inner sep=1pt, outer sep=1pt}}
+\tikzset{figLabelStyle/.style={align=right, anchor=north west, text=figLabelColor, font=\normalfont, fill=black,fill opacity=1,text opacity=1,inner sep=2pt, outer sep=1pt}, draw, rounded corners}
+
+
+%----- atomic functions
+\DeclareDocumentCommand{\insertFigureSource}{O{} O{ (1,0) } m}{
+%#1: optional figure source commands
+%#2: optional positioning
+%#3: figure source
+    \IfNoValueF{#3}{\node[figSourceStyle, #1] at #2 {\textit{Source:} #3};}%
+}
+
+\DeclareDocumentCommand{\insertFigureTitle}{O{} O{ (0.5,1)} m}{
+%#1: optional figure source commands
+%#2: figure source
+    \IfNoValueF{#3}{\node[figTitleStyle, #1] at #2 {#3};}%
+}
+
+\DeclareDocumentCommand{\insertFigureLabel}{O{} O{ (0,1) } m}{
+%#1: optional figure source commands
+%#2: optional positioning
+%#3: figure label
+    \IfNoValueF{#3}{\node[figLabelStyle, #1] at #2 {#3};}%
+}
+
+
+%- Funtions from within tikzpicture environment
+
+\DeclareDocumentCommand{\beamerfigure}{m O{width=0.8\columnwidth, height=0.9\textheight, keepaspectratio=true} m O{} m o}{
+% #1: arguments for tikzpicture environment
+% #2: optional arguments includegraphics
+% #3: path to figure
+% #4: optional figure SOURCE commands
+% #5: figure SOURCE
+% #6: optional figure TITLE commands
+% #7: figure TITLE
+% #8: optional figure LABEL commands
+% #9: figure LABEL
+% #10: optional tikz commands in local image scope
+\begin{tikzpicture}[#1]
+   \node[anchor=south west,inner sep=0] (image) at (0,0)
+        { \includegraphics[#2]{#3}};
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]
+	  \insertFigureSource[#4]{#5} %
+	  %\insertFigureTitle[#4]{#5} %
+	  %\insertFigureLabel[#6]{#7} %
+	  #6
+        \end{scope}
+\end{tikzpicture}    
+} 
+
+
+\DeclareDocumentCommand{\beamerfig}{O{} O{width=0.8\columnwidth, height=0.9\textheight, keepaspectratio=true} m o}{
+% #1: arguments for tikzpicture environment
+% #2: optional arguments includegraphics
+% #3: path to figure
+% #4: optional tikz commands in local image scope
+\begin{tikzpicture}[#1]
+   \node[anchor=south west,inner sep=0] (image) at (0,0)
+        { \includegraphics[#2]{#3}};
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]
+	  #4
+        \end{scope}
+\end{tikzpicture}    
+} 
+
+%figurenode[options for node]{node name}{options for includegraphics}{path}[???]
+%\figurenode[anchor=west]{linac}[height=0.3\textheight]{fig/Wideroe_linac_en.pdf}[[xshift=1mm]lin.south]
+\DeclareDocumentCommand{\figurenode}{O{anchor=south west,inner sep=0} m O{width=0.8\textwidth, height=0.9\textheight, keepaspectratio=true} m O{}}{
+% #1: options for node
+% #2: figure node name
+% #3: optional arguments includegraphics
+% #4: path to figure
+% #5: optional relative positioning commands
+\ifthenelse{\equal{#5}{}}%
+	   {\node[inner sep=0, #1] (#2) at (0,0) {\includegraphics[#3]{#4}};}%
+	   {\node[inner sep=0, #1] (#2) at (#5) {\includegraphics[#3]{#4}};}%
+} 
+
+
+
+%figureannotation{referenced node name}{source}[optional arguments in overlayed tikzpicture]
+\DeclareDocumentCommand{\figureannotation}{m O{} m O{}}{
+% #1: name of referenced \figurenode
+% #2: optional figure source commands
+% #3: source
+% #4: optional arguments for tikzpicture
+\begin{scope}[shift=(#1.south west),x={(#1.south east)},y={(#1.north west)}]  
+  \ifthenelse{\equal{#3}{}}%
+	      {}%
+	      {\node[figSourceStyle, #2] at (1,0) {\textit{Source:} #3};}%
+   #4
+\end{scope}   
+} 
+
+
+\DeclareDocumentCommand{\figSource}{m O{} O{} m}{
+% #1: name of referenced \figurenode
+% #2: optional figure source commands
+% #3: optional fig source positioning
+% #4: source
+\begin{scope}[x=(#1.south east),y=(#1.north west)]
+  \insertFigureSource[#2][#3]{#4}
+\end{scope}   
+} 
+
+
+
+
+\DeclareDocumentCommand{\DrawPointer}{O{} O{ 0.05,0.1 } m O{} m}{
+%#1: optional pointer style commands
+%#2: optional pointer orientation command
+%#3: mandatory pointer start coordinates
+%#4: optional node style commands
+%#5: optional node text
+  
+  \draw[pointer, #1] (#3)--($(#3)+(#2)$);
+  \IfNoValueF{#5}{
+    \node[anchor=west, font=\normalfont, fill=white!30,fill opacity=0.5,text opacity=1,inner sep=1pt, outer sep=1pt, align=center,  #4] at ($(#3)+(#2)+(0.02,0)$) {#5};}%
+}
+
+%============   slide counting  ===============
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}

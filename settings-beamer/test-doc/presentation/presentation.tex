@@ -1,0 +1,158 @@
+%% uncomment following to identify external dependencies such as included figures
+%\RequirePackage[log]{snapshot}
+
+% Full presentation (with overlays, animated bullet items etc)
+\documentclass[xcolor={x11names,svgnames,dvipsnames, table}, 10pt]{beamer}
+
+% Transparency mode (no overlays)
+%\documentclass[xcolor={x11names,svgnames,dvipsnames},trans, 9pt]{beamer}
+
+% 4-up handout mode
+%\documentclass[xcolor={x11names,svgl names,dvipsnames},handout, 9pt]{beamer}
+
+%\setbeameroption{show only notes}
+%\setbeameroption{show notes}
+
+%-- Notes on 2nd screen works with pdflatex 
+% use dspdfviewer for display
+
+%\setbeameroption{show notes on second screen=right}
+
+%\setbeamerfont{note page}{size=\tiny}
+
+%\includeonlyframes{current}
+%<handout:0 beamer:0>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Load Path Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{path-settings.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% INCLUDED PACKAGES & COMMAND DEFINITIONS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{\beamerSettingsPath mybeamersetup}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\myTitle}{Title}
+\renewcommand{\myName}{Daniel Abler}
+\renewcommand{\mySubject}{Subject}
+
+\renewcommand{\myUni}{University of Bern}
+\renewcommand{\myLocation}{Bern}
+\renewcommand{\myTime}{\today}
+
+%%% Add Bibliography Files
+\addbibresource{\bibPath project.bib}
+%%% Add project-Specific acronyms
+\loadglsentries{\glossaryPath project-glossary.tex}
+
+%============  TITLE PAGE =======================
+\title[]{\myTitle}
+\author{
+  \underline{\emaillink[Daniel  Abler]{daniel.abler@istb.unibe.ch}}\inst{1}, %
+  \emaillink[Author 2]{author.email@domain.com}\inst{2}} 
+\institute{\inst{1} University of Bern, ISTB \and %
+           \inst{2} other author's institute}
+\date{\myTime}
+%\institute{\myUni}
+\subtitle{\mySubject}
+
+%============  LOGOS ON BACKGROUND ===============
+% \newif\ifplacelogo % create a new conditional
+% \placelogotrue % set it to true by default; \placelogofalse -> disable
+% \logo{%
+%     \includegraphics[width=1cm,height=1cm,keepaspectratio]{../logos/ub_16pt_192.eps}%
+% }
+
+%============  LOGO IN HEADER      ===============
+%\logo{\includegraphics[height=0.5cm]{../logos/chic-logo.png}}
+%\titlegraphic{\includegraphics[height=0.5cm]{../logos/chic-logo.png}}
+%\titlegraphicii{\includegraphics[height=0.5cm]{../logos/chic-logo.png}}
+
+
+%============ Document-specific settings ===============
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BEGIN DOCUMENT %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+{
+\setbeamertemplate{footline}{} 
+\begin{frame}[noframenumbering]
+  \titlepage
+\end{frame}
+}
+
+
+
+\section{Section 1}
+\label{sec:section-1}
+
+%----------------- FRAME -----------------------
+\begin{frame}[label=frame1]
+  \frametitle{A Frame}
+      \begin{itemize}
+      \item an important item
+      \item another one
+      \end{itemize}
+\end{frame}
+
+
+
+\section{Acknowledgement}
+\label{sec:acknowledgement}
+
+\begin{frame}
+  \begin{center}
+    {\Huge THANK YOU!}\\
+    \vspace{1cm} {\Large Your Questions?}
+  \end{center}
+\end{frame}
+
+
+%----------------- FRAME -----------------------
+\begin{frame}
+  \frametitle{Bibliography}
+  \printbibliography
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\backupbegin
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%----------------- FRAME -----------------------
+\begin{frame}
+  \frametitle{Appendix}
+   \vfill
+  \begin{center}
+    {\Huge Extra Slides}
+    \vspace{1cm} 
+  \end{center}
+  \vfill
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backupend
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+
+
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-engine: xetex_sh
+%%% TeX-master: t
+%%% End:
