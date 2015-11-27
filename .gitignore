@@ -23,9 +23,9 @@
 *.bcf
 
 # PDF output
-presentation/*.pdf
-article/*.pdf
-poster/*.pdf
+_presentation/*.pdf
+_article/*.pdf
+_poster/*.pdf
 # SyncTeX
 *.synctex.gz
 
