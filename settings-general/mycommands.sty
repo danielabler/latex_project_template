@@ -1,0 +1,89 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%            PATH SETTINGS                 %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%% FIGURES
+% This defines a variable for the path to the directory where our figures are located
+\def \figPath{../figs/}
+% \graphicspath defines where the latex graphics package looks for files called by \includegraphics{...}
+\graphicspath{{\figPath}}
+%or for multiple folders: \def\input@path{{/path/to/folder}{/path/to/other/folder}}
+
+% With these settings you can load a graphic form ../figs/fig.png using only \includegraphics{fig.png} 
+% BEWARE that not all packages are aware of the graphicspath variable
+% (e.g. epstopdf is not)!
+% In those cases call by \includegraphics{\figPath fig.eps}
+
+
+%%%%% INPUT PATH
+% Here we follow a similar strategy as for graphics path
+\def \tabPath{../tables/}
+% This defines where latex looks for files called by \input{...}
+\makeatletter
+\def\input@path{{\tabPath}}
+%or for multiple folders: \def\input@path{{/path/to/folder}{/path/to/other/folder}}
+\makeatother
+
+%%%%% Text Markup
+\newcommand{\nt}[1]{\ensuremath{\mathrm{#1}}} % normal text in math
+
+% usage: \emaillink[optional text]{link}
+\newcommand*{\emaillink}[2][]{%
+  \ifthenelse{\equal{#1}{}}%
+    {\href{mailto:#2}{#2}}%
+    {\href{mailto:#2}{#1}}}
+
+    
+%%%%% MATH Commands
+\usepackage{math-physics-commands}
+
+%%%% Lists
+%\newlist{itemize*}{itemize}{3}
+%\setlist[itemize*]{label=\textbullet,leftmargin=0pt,itemsep=1pt}
+
+
+\newenvironment{itemize*}{
+\begin{itemize}[leftmargin=*]
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+
+%%%% GRAPHICS COMMANDS
+
+% -------------- tikz style definitions
+
+\tikzstyle{annotation}=[rectangle, rounded corners, inner sep=2pt, fill=white!20, fill opacity=0.6, text opacity=1, text centered, anchor=north west, text=black, font=\footnotesize]%
+\tikzstyle{pointer}=[line width=1pt, ->,densely dotted, mygreen]%
+
+% -------------- tikz help lines
+\newcommand{\picturegrid}{
+  \draw[help lines,step=.05] (0,0) grid     (1,1);%
+  \draw[help lines,line width=1pt,step=0.2] (0,0) grid (0,0);%
+  \foreach \x in {0,0.2,0.4,0.6,0.8,1}%
+  \node[anchor=north] at (\x,0) {\x};%
+  \foreach \y in {0,0.2,0.4,0.6,0.8,1}%
+  \node[anchor=east] at (0,\y) {\y};%
+}
+
+
+%----- atomic functions
+\DeclareDocumentCommand{\insertFigureSource}{O{} m}{
+%#1: optional figure source commands
+%#2: figure source
+    \IfNoValueF{#2}{\node[figSourceStyle, #1] at (1,0) {\textit{Source:} #2};}%
+}
+
+\DeclareDocumentCommand{\insertTikzFigure}{O{0.8} m}{
+  \begingroup
+    %\tikzset{every picture/.style={#1}, transform shape}%
+    \tikzset{global scale/.style={
+    scale=#1,
+    every node/.style={scale=#1}
+    }
+  }
+    \input{#2}
+  \endgroup
+}

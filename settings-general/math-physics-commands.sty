@@ -1,0 +1,40 @@
+\ProvidesPackage{math-physics-commands}
+
+
+% ************************************************************
+% ****************** commands for physics ********************
+% ************************************************************
+%\renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}} % for vectors
+\renewcommand{\v}[1]{\ensuremath{\bm{#1}}} 			% requires 'bm' package
+\newcommand{\ma}[1]{\ensuremath{\bm{\hat{#1}}}} % for matrices`
+\newcommand{\ten}[1]{\ensuremath{\bm{\hat{#1}}}} % for tensor
+\newcommand{\h}[1]{\ensuremath{\bm{#1}}} % for hamiltonian
+\newcommand{\gv}[1]{\ensuremath{\mbox{\boldmath$ #1 $}}}
+\newcommand{\transposed}[1]{\ensuremath{{#1}^\intercal}} % normal text in math
+
+\newcommand{\identma}{\ensuremath{\mathbb{I}}}
+% for vectors of Greek letters
+\newcommand{\uv}[1]{\ensuremath{\bm{\hat{#1}}}} % for unit vector
+\newcommand{\abs}[1]{\left| #1 \right|} % for absolute value
+\newcommand{\absnorm}[1]{\left|| #1 \right||} % for norm
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+
+\newcommand{\diff}[2]{\frac{d #1}{d #2}} % for derivatives
+\newcommand{\ddiff}[2]{\frac{d^2 #1}{d #2^2}} % for double derivatives
+\newcommand{\pdiff}[2]{\frac{\partial #1}{\partial #2}} 
+
+\let\underdot=\d % rename builtin command \d{} to \underdot{}
+\renewcommand{\d}[1]{d #1} % integral d
+
+
+% for partial derivatives
+\newcommand{\pddiff}[2]{\frac{\partial^2 #1}{\partial #2^2}} 
+\newcommand{\grad}[1]{\gv{\nabla} #1} % for gradient
+\renewcommand{\div}[1]{\gv{\nabla} \cdot #1} % for divergence
+\newcommand{\curl}[1]{\gv{\nabla} \times #1} % for curl
+\newcommand{\sgn}{\operatorname{sgn}}
+\newenvironment{mymatrix}{\begin{bmatrix}}{\end{bmatrix}}
+\newenvironment{myvector}{\begin{pmatrix}}{\end{pmatrix}}
+\newcommand{\order}[1]{\mathcal{O}(#1)} % order of
+
+
