@@ -1,0 +1,39 @@
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     FRONT MATTER                             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%=== TITLE PAGE ==================================
+\title{\myTitle}
+\author{\myName}
+\date{\today}
+\maketitle                   
+\cleardoublepage
+
+%=== Abstract ====================================
+\begin{abstract}
+  \begin{center}
+    \large{Abstract}
+  \end{center}
+Some words in the abstract and a citation~\cite{Rontgen_1898}.
+A todo note inline \commentinline{some comment text}.
+Another todo item \todo{some todo here}.
+\end{abstract}
+\cleardoublepage
+
+%=== Start ROMAN pagenumbering ==================
+\pagenumbering{roman}
+
+
+\cleardoublepage
+%================= TOCs =========================
+\tableofcontents          % generate and include a table of contents
+\listoffigures            % generate and include a list of figures
+\listoftables             % generate and include a list of figures
+\cleardoublepage
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "document_master"
+%%% End: 

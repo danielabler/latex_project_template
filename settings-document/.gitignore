@@ -1,0 +1,43 @@
+
+#-- LaTeX
+# LaTeX temporary files
+*.aux
+*.log
+*.toc
+
+# LaTeX Beamer
+*.snm
+*.vrb
+*.nav
+*.out
+*.run.xml
+
+#BibTeX
+*.bbl
+*.blg
+
+# Glossaries
+*.acn
+*.xdy
+*.glo
+*.bcf
+
+# Others
+*.lof
+*.lot
+*.backup
+
+# PDF output
+test-doc/document/*.pdf
+
+# SyncTeX
+*.synctex.gz
+
+#-- EMACS
+*~
+_region_.*
+_region_.*/
+auto/
+ltxpng/
+*-converted-to.*
+ 

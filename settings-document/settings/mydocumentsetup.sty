@@ -1,0 +1,287 @@
+% ==============================
+%     IDENTIFICATION
+% ==============================
+
+\ProvidesPackage{mydocumentsetup}
+\NeedsTeXFormat{LaTeX2e}
+
+
+% ==============================
+%     OPTIONS & USER SETTINGS
+% ==============================
+\newcommand{\myTitle}{Title}
+\newcommand{\myName}{Name}
+\newcommand{\mySubject}{Subject}
+\newcommand{\myUni}{University}
+\newcommand{\myLocation}{Place}
+\newcommand{\myTime}{\today}
+
+
+% ==============================
+%     KOMA SETTINGS
+% ==============================
+\KOMAoptions{BCOR=0.41in, DIV=14}
+\KOMAoptions{chapterprefix=false, appendixprefix=false}
+\KOMAoption{captions}{tableheading, centeredbeside}
+
+\addtokomafont{caption}{\small}				% change fontsize of caption text to small
+\setkomafont{captionlabel}{\sffamily\bfseries}		% change font of caption label
+\setcapindent{1em}					% formatting between label and caption text, standard is
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% ==============================
+%     PACKAGES
+% ==============================
+
+
+
+
+
+
+%============ General Packages ====================
+\RequirePackage{
+  %==== Controls
+  ifthen,
+  %ifxetex,      		% to check which latexcompiler is being used
+  iftex,
+  xparse,			% more flexible command definitions
+  % Enumerations
+  enumitem,     		% easy control of topsep and leftmargin for lists
+  paralist,
+  %==== Tables
+  booktabs,
+  colortbl,			% cell color
+  multirow,			% merging rows
+  multicol,			% merging columns
+  threeparttable,
+  tabu,
+  %==== Math
+  amsmath,
+  amssymb,
+  bm,				% bold greek symbols in math mode
+  %==== Graphics
+  etex,
+  xcolor,
+  graphicx,
+  pgfpages,
+  %==== Links
+  hyperref,     
+  cleveref,                     % adding reference type, such as "Fig." in text, to be loaded after hyperref
+  %==== line spacing
+  setspace
+}
+
+
+
+%============ Language setting ====================
+% use inputenc, babel for PDFtex and polyglossia otherwise
+\ifPDFTeX
+  \RequirePackage[utf8]{inputenc}
+  %\RequirePackage[ngerman]{babel}
+  \RequirePackage[UKenglish]{babel}
+  \RequirePackage[babel]{csquotes} 
+  \else
+  \RequirePackage{polyglossia}
+  %\setdefaultlanguage[spelling=new]{german}
+  \setdefaultlanguage[variant=british]{english}
+  \RequirePackage{csquotes} 
+\fi
+
+
+
+%============ Type setting ====================
+
+%--- allows 1st, 2nd, 3rd, etc...
+\RequirePackage[super]{nth}
+
+%--- if XeTeX/LuaTeX used, change font settings
+\ifPDFTeX
+    \RequirePackage[osfss]{libertine}
+    \RequirePackage[scaled=.77]{beramono}
+
+    \else
+
+   \RequirePackage{xunicode}
+   \RequirePackage{fontspec} % to use extra fonts with XeTeX
+   \RequirePackage{xltxtra}    
+   %\setromanfont[Mapping=tex-text]{Linux Libertine}
+   %\setsansfont[Mapping=tex-text]{Myriad Pro}
+   %\setmonofont[Mapping=tex-text]{Courier New}
+   %\usefonttheme{serif}
+   %\setmainfont{Adobe Garamond Pro}
+   %\setmainfont{Verdana}
+   %\setmainfont{CartoGothicStd-Italic.otf}
+   %\setmainfont{Helvetica Neue}
+   %\setbeamerfont{note page}{family*=pplx,size=\footnotesize} % Palatino for notes
+   %\defaultfontfeatures{Mapping=tex-text}
+   
+% \else
+\fi
+
+
+%--- beautification if not XeTeX
+\ifxetex
+ %- nothing if XeTex
+ \else
+ %- font tuning 
+ \ifPDFTeX
+  \RequirePackage[
+      activate={true,nocompatibility},
+      final,
+      tracking=true,
+      kerning=true,
+      spacing=true,
+      factor=1100,
+      stretch=20,
+      shrink=20
+      ]{microtype}
+      \else %LuaTex
+	\RequirePackage[
+	activate={true,nocompatibility},
+	final,
+	tracking=true,
+	kerning=false,
+	spacing=false,
+	factor=1100,
+	stretch=20,
+	shrink=20
+	]{microtype}
+    \fi
+\fi
+
+
+
+
+%============ HYPERREF =================
+\definecolor{linkInDocColor}{RGB}{11,95,10}    % green
+\definecolor{linkOutColor}{RGB}{36,32,132}     % blue
+\hypersetup{%
+    %colorlinks=true, linktocpage=true, pdfstartpage=1, pdfstartview=FitV,%
+    %colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=3, pdfstartview=FitV,% 
+    breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
+    plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+    hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
+    %urlcolor=linkOutColor, linkcolor=linkInDocColor, citecolor=linkInDocColor, %pagecolor=RoyalBlue,%
+    urlcolor=black, linkcolor=black, citecolor=black, %pagecolor=Black,%
+    pdftitle={\myTitle},%
+    pdfauthor={\myName},%
+    pdfsubject={\mySubject},%
+    pdfkeywords={\myName, \myTitle, \mySubject},%
+    pdfcreator=\LaTeX{},%
+    pdfproducer=\LaTeX{}%
+}  
+
+%============= BIBLIOGRAPHY ======================
+%--- use biblatex to generate publication entries
+\RequirePackage[backend=biber, autocite=plain, language=auto, hyperref=true, %
+            style=numeric,                                      % numeric
+            sorting=none,					
+            isbn=false, doi=true, eprint=false,
+            minnames=1, maxnames=5, 		                % maximum 5 authors in bibliography
+            maxcitenames=1, 		                        % maximum 1 author in citation
+            firstinits=true, 			                % only initials for first names
+	    block=none,					        % spacing between blocks
+            date=terse                                          % date formatting short and compa
+	    ]{biblatex}
+
+%--- load customisation to bibliography 
+\RequirePackage{\documentSettingsPath/BibCustomisations}
+
+%============= GRAPHICS ======================
+
+%--- TikZ
+\RequirePackage{tikz, tkz-euclide, tikz-3dplot}
+\usetkzobj{all}
+\usetikzlibrary{calc, chains, matrix, arrows, shapes, scopes, fit,
+  decorations.pathmorphing, decorations.pathreplacing,  automata,
+  trees, positioning, shadows, calc, mindmap, backgrounds,
+  intersections, spy, 3d}
+%--- frames, boxes
+\RequirePackage[framemethod=tikz]{mdframed}
+
+
+%============ Units ====================
+\usepackage[detect-mode,detect-weight]{siunitx}
+\sisetup{%
+    % -----------------------------------------
+    % avoid font scaling problems in combination with fontspec
+    % see siunitx manual, p 70
+    mode = math,
+    math-rm = \ensuremath,
+    % -----------------------------------------
+    %list-units = single, %
+    %range-units = single, %
+    range-phrase = {\text{~to~}},
+    %range-phrase= %
+    %   \ifmmode\text{\,\textendash\,}
+    %	\else
+    %	\thinspace\textendash\thinspace
+    %      \fi,%
+    exponent-product = \cdot,%
+    separate-uncertainty = true,
+    table-format = +3.2e+4,
+    multi-part-units = single
+}
+
+
+%============ ToDo Notes ====================
+
+\usepackage[
+		%disable,										%
+		colorinlistoftodos, 							%
+		textwidth=\marginparwidth+\marginparsep, 	%
+		textsize=tiny									%
+		]{todonotes}
+
+% comment style with name in []
+\newcounter{mycommentcounter}
+\newcommand{\commentinline}[2][]{
+\refstepcounter{mycommentcounter}%
+{%
+\todo[color=yellow!50,%
+      size=\small,
+      inline,
+      caption={\protect\hypertarget{todo\themycommentcounter}{}Comment \themycommentcounter (#1):}]{%
+        \begin{minipage}{\linewidth}
+          \textbf{Comment [\uppercase{#1}\themycommentcounter]:}~#2 \hfill \hyperlink{todo\themycommentcounter}{$\uparrow$}%
+        \end{minipage}
+    }%
+}}
+
+
+
+%============= My COMMANDS ======================
+% load before glossaries -> \httplink dependency
+\RequirePackage{\generalSettingsPath/mycommands}	
+\RequirePackage{\generalSettingsPath/generalTextMarkup}	
+
+
+%============= GLOSSARIES ======================
+%--- use glossary to manage abbreviations (load after hyperref)
+% indexes and glossaries (load after hyperref)
+% see http://www.latex-community.org/know-how/263-glossaries-nomenclature-lists-of-symbols-and-acronyms
+\RequirePackage[xindy,					%
+	    acronym,					%
+	    toc,					%
+	    nonumberlist, 				%
+	    %nomain
+	    sanitize={name=true,description=true,symbol=false}  % symbol = false is requires to use e.g. mathcode symbols, don't know about the others
+	    ]{glossaries}
+
+% disable Glossary Hyperlinks -> necessary to allow http links from Glossary acronyms in text
+\glsdisablehyper
+
+% highlight undefined glassary entries
+% http://tex.stackexchange.com/questions/64032/displaying-highlighting-glossary-entries-that-are-not-defined-yet
+\newcommand{\mygls}[1]{\ifglsentryexists{#1}{\gls{#1}}{\textcolor{red}{#1}}}
+
+% redefine gls command in order to *maintain* linking, but *remove* link color defined in hyperref
+\renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}}
+
+%%% Settings for Glossary 
+% Ein eigenes Symbolverzeichnis erstellen
+% \newglossary[slg]{symbolslist}{syi}{syg}{Symbolverzeichnis}
+% \makeglossaries
+\loadglsentries{\generalSettingsPath/myacronyms.tex}
+

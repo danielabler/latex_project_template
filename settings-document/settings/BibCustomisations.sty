@@ -1,0 +1,25 @@
+
+% Suppress fields for certain entry types
+\AtEveryBibitem{%
+  \ifboolexpr
+    {
+      test { \ifentrytype{article} }
+      or
+      test { \ifentrytype{report} }
+      or
+      test { \ifentrytype{book} }
+      or
+      test { \ifentrytype{inbook} }
+      or
+      test { \ifentrytype{inproceedings} }
+    }
+    {\clearfield{url}}
+    {\clearfield{urldate}}%
+    {\clearfield{note}}
+    {\clearfield{annote}}
+    {\clearfield{issn}}%
+    {\clearfield{isbn}}%
+    {\clearfield{pmid}}%
+    {\clearfield{pmidc}}%
+}
+

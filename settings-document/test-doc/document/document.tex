@@ -1,0 +1,106 @@
+\documentclass[12pt,         %
+               twoside=false
+               %draft=true   %
+               ]{scrreprt} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%=== Load Path Definitions ================
+\input{../project-settings/path-settings.tex}
+
+%=== Default setup ========================
+\usepackage{\beamerSettingsPath mybeamersetup}
+
+%=== Project settings ==== ================
+\input{\projectSettings project-details.tex}
+ 
+%=== Bibliography Files ===================
+\addbibresource{\bibPath project.bib}
+
+%=== Acronyms =============================
+\loadglsentries{\glossaryPath project-glossary.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BEGIN DOCUMENT %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%==========================================
+%===  PRINT information about PAGE SETTINGS
+% \currentpage
+% \drawparametersfalse
+% \drawpage
+% \pagevalues
+%==========================================
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     FRONT MATTER                       
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\singlespacing                    
+\input{FrontMatter.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     MAIN  MATTER                             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\onehalfspacing
+%\doublespacing
+\singlespacing                    
+\pagenumbering{arabic}
+%% Thesis  files
+\input{Introduction.tex}
+\input{Chapter2.tex}
+\input{Informatics.tex}
+\input{LEIR.tex}
+\input{Conclusions.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Back  MATTER                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\appendix
+\singlespacing  
+
+\input{Appendix_Informatics.tex}
+\input{Appendix_LEIR.tex}
+
+%%%%%%%%%%%  add Glossary  %%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand*{\glossaryname}{List of Terms}
+%\addcontentsline{toc}{chapter}{Glossary}
+%\printglossaries
+% print glossaries individually
+%\printglossary[style=mcolindex]
+%\printglossary[type=\acronymtype,style=mcolindex]
+%\printglossary[type=symbolslist,style=mcolindex]
+
+
+%%%%%%%%%%%%%% add Bibliography %%%%%%%%%%%%%%%%
+\singlespacing
+%\addcontentsline{toc}{chapter}{Bibliography}
+%\printbibheading
+
+% print one bibliopgraphy per refsection defined in header
+%%% defines the heading to be used for each 'refsection'
+%\defbibheading{subbibliography}{%
+%   \section*{References from chapter
+%   \ref{refsection:\therefsection}}}
+
+\small
+%\bibbysection[heading=subbibliography]
+\singlespacing  
+%\begin{spacing}{1}
+\printbibliography 
+%\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               END OF DOCUMENT                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-mclaster: t
+%%% TeX-master: t
+%%% End: 

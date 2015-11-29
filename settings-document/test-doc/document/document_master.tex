@@ -1,0 +1,100 @@
+\documentclass[12pt,         %
+               twoside=false
+               %draft=true   %
+               ]{scrreprt} 
+
+%=== KOMA SETTINGS ========================
+
+
+%=== Load Path Definitions ================
+\input{path-settings.tex}
+
+%=== Default setup ========================
+\usepackage{\beamerSettingsPath mydocumentsetup}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROJECT SETTINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%=== Project Info =========================
+%\input{\projectSettings/project-details.tex}
+ 
+%=== Bibliography Files ===================
+\addbibresource{\bibPath/project.bib}
+
+%=== Acronyms =============================
+\loadglsentries{\glossaryPath/project-glossary.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT-SPECIFIC SETTINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BEGIN DOCUMENT %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+%=== Load Path Definitions ================
+\input{path-settings.tex}
+
+%==========================================
+%===  PRINT information about PAGE SETTINGS
+% \currentpage
+% \drawparametersfalse
+% \drawpage
+% \pagevalues
+%==========================================
+
+
+%=== FRONT MATTER =========================                       
+\singlespacing                    
+\input{document_front-matter.tex}
+
+%=== MAIN MATTER ==========================
+%\onehalfspacing
+%\doublespacing
+\singlespacing                    
+\pagenumbering{arabic}
+
+\input{document_main-matter.tex}
+
+%=== BACK MATTER ==========================
+\appendix
+\singlespacing  
+\input{document_back-matter.tex}
+
+%=== GLOSSARY =============================
+%\renewcommand*{\glossaryname}{List of Terms}
+%\addcontentsline{toc}{chapter}{Glossary}
+%\printglossaries
+% print glossaries individually
+%\printglossary[style=mcolindex]
+%\printglossary[type=\acronymtype,style=mcolindex]
+%\printglossary[type=symbolslist,style=mcolindex]
+
+%=== BIBLIOGRAPHY ==========================
+\singlespacing
+\small
+\printbibliography 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               END OF DOCUMENT                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-mclaster: t
+%%% TeX-master: t
+%%% End: 
